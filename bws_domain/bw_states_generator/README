@@ -1,0 +1,95 @@
+To make both bwstates and bwopt, just type "make". Requires gcc and
+standard C libraries.
+
+To use another compiler or a different math library, for example, edit
+the Makefile.
+
+To test bwopt, type "bwopt < test_opt.25". If you see a plan for a blocks
+world instance, all is well.
+
+To test bwstates, type "bwstates -n10". You should see a pair of blocks
+world states of size 10.
+
+If you want to get optimal plan lengths for use in another C program,
+link the object files called $(OPTOBS) in the Makefile, and use OPTlength()
+as a function call. See the source in optimal12.c for the parameters etc.
+
+=======================================
+
+NAME
+     bwstates
+
+SYNOPSIS
+     bwstates [-nprsv]
+
+This program generates pairs of random states of Blocks World (BW)
+suitable for use as BW planning problems. Note that the states
+generated are complete (that is, complete specifications of which
+block is on which) and are pseudo-random wioth uniform distribution
+within the class of such states of the same number of blocks. The
+number of blocks (not including the table) is supplied as an argument
+to this program, along with the number of pairs of states required.
+
+The output is in the form of a list of intgers. The blocks are to be
+thought of as numbered from 1 to N, with the table as number 0. Each
+state is specified by giving first N and then for each block in
+sequence the number of the block it is on. A notional size of zero
+terminates the output. For example, the state of 6 blocks
+
+     2
+     5    3
+     4    1    6
+    -------------
+
+is represented by the integers
+   6
+   0 5 1 0 4 0
+meaning there are 6 blocks; 1 is on the table, 2 on 5, 3 on 1, 4 on the
+table, 5 on 4 and 6 on the table.
+
+Optionally the program outputs a solution to the problem instead of the
+pair of states. The algorithm used to generate the solution may be US,
+GN1, GN2 or OPTIMAL (see Slaney and Thiebaux, "Blocks World Revisited",
+AI Journal, 2001).
+
+If solutions are requested, the last line of output will be a summary
+consisting of four integers:
+   n p r result
+where n is the number of blocks, p the number of problems, r the
+random number seed (default 3088) and result is the average plan
+length.
+
+Parameters are given to this program on the command line. The options are:
+
+   -n <integer>     number of blocks in each state (default 0)
+   -p <integer>     number of problems (pairs of states) (default 1)
+   -r <integer>     seed for the random number generator (default 3088)
+   -a <integer>     algorithm used to solve problem
+                    0 = US, 1 = GN1, 2 = GN2, 3 = OPTIMAL.
+   -v <integer>     verbosity (default 0 with option -a, -1 without))
+                    -1 = print the states
+		    0 = print summary only
+		    1 = print plan lengths and summary,
+                    2 = print the states and plan lengths and summary
+		    3 = print detailed plans and summary
+
+The "random" numbers are supplied by the C library function drand48().
+
+=======================================
+
+NAME
+     bwopt
+
+SYNOPSIS
+     bwopt [verbosity]
+
+This program takes from stdin a sequence of BW planning problems, in
+the format produced by bwstates without option -a, and returns
+optimal solutions.
+
+The verbosity setting is an integer (default 3):
+   0 = no output except for the average plan length
+   1 = output n plan_length for each problem, and the average
+   2 = output n plan_length runtime for each problem and the average
+   3 = output full plan for each problem and the average plan length
+Verbosity settings outside the range 1..3 are treated as 0.
