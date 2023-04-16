@@ -1,48 +1,62 @@
 import os
 
-for x in os.listdir('AI_Planning/bws_domain/'):
-    if 'problem' in x:
-        f = open(os.path.join(
-            '/home/rishabh_mukund/Workspace/AI_Planning/bws_domain/', x), 'r')
-        lines = f.readlines()
-        status = ''
-        init = '{'
-        goal = '{'
-        for line in lines:
-            if 'init' in line:
-                status = 'init'
-            if 'goal' in line:
-                status = 'goal'
-            if(status == 'init'):
-                if 'on-table' in line:
-                    words = line.split('(')[1].split(')')[0].split(' ')
-                    init += words[1].split('b')[1] + ': \'table\', '
-                elif 'on' in line:
-                    words = line.split('(')[1].split(')')[0].split(' ')
-                    init += words[1].split('b')[1] + \
-                        ':' + words[2].split('b')[1] + ', '
-                elif 'clear' in line:
-                    words = line.split('(')[1].split(')')[0].split(' ')
-                    init += words[1].split('b')[1] + ': True, '
-            if(status == 'goal'):
-                if 'on-table' in line:
-                    words = line.split('(')[1].split(')')[0].split(' ')
-                    goal += words[1].split('b')[1] + ': \'table\', '
-                elif 'on' in line:
-                    words = line.split('(')[1].split(')')[0].split(' ')
-                    goal += words[1].split('b')[1] + \
-                        ':' + words[2].split('b')[1] + ', '
-        # print(x)
-        x = x.replace('bws_problem', 'state')
-        print(x + ' = gtpyhop.State(\'' + x + '\')')
-        print(x + '.pos = ')
-        print(init)
-        print(x + '.clear = {x: False for x in range(1, 20)}')
-        print(x + 'clear.update()')
-        print(x + '.holding = {\'hand\': False}')
-        print(x + '.display(Init state is:)')
-        x = x.replace('state', 'goal')
-        print(x + ' = gtpyhop.Multigoal(\'' + x + '\')')
-        print(x + '.pos = ')
-        print(goal)
-        print(x + '.display(Goal state is:)')
+folder_path = os.path.join(os.getcwd(), '../bws_domain')
+
+for folder in os.listdir(folder_path):
+    if 'problem' in folder:
+        for file_name in os.listdir(os.path.join(folder_path, folder)):
+            if 'problem' in file_name:
+                status = ''
+                f = open(os.path.join(
+                    '/home/rishabh_mukund/Workspace/AI_Planning/bws_domain/', file_name), 'r')
+                lines = f.readlines()
+                init_clear = {}
+                init_pos = {}
+                init_holding = {'hand': False}
+                final_pos = {}
+
+                for line in lines:
+                    if 'objects' in line:
+                        objects = line.split('(')[1].split(')')[
+                                             0].split('objects ')[1].split(' ')
+                        init_clear = {
+                            x: False for x in objects}
+
+                    if 'init' in line:
+                        status = 'init'
+                    if 'goal' in line:
+                        status = 'goal'
+
+                    if(status == 'init'):
+                        if 'on-table' in line:
+                            words = line.split('(')[1].split(')')[0].split(' ')
+                            init_pos[words[1]] = 'table'
+                        elif 'on' in line:
+                            words = line.split('(')[1].split(')')[0].split(' ')
+                            init_pos[words[1]] = words[2]
+                        elif 'clear' in line:
+                            words = line.split('(')[1].split(')')[0].split(' ')
+                            init_clear[words[1]] = True
+                    if(status == 'goal'):
+                        if 'on-table' in line:
+                            words = line.split('(')[1].split(')')[0].split(' ')
+                            final_pos[words[1]] = 'table'
+                        elif 'on' in line:
+                            words = line.split('(')[1].split(')')[0].split(' ')
+                            final_pos[words[1]] = words[2]
+                print(file_name)
+                file_name = file_name.replace('bws_problem', 'state')
+                print(file_name + ' = gtpyhop.State(\'' + file_name + '\')')
+                print(file_name + '.pos = ')
+                print(init_pos)
+                print(file_name + '.clear = ')
+                print(init_clear)
+                print(file_name + '.holding = ')
+                print(init_holding)
+                print(file_name + '.display(Init state is:)')
+                file_name = file_name.replace('state', 'goal')
+                print(file_name + ' = gtpyhop.Multigoal(\'' + file_name + '\')')
+                print(file_name + '.pos = ')
+                print(final_pos)
+                print(file_name + '.display(Goal state is:)')
+                print()
