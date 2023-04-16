@@ -60,14 +60,15 @@ for folder in os.listdir(folder_path):
                             words = line.split(
                                 '-')[0].split(' ')[0].split('\t')
                             objects['dir'].append(words[1])
-
                     if(status == 'init'):
+                        if '(' not in line:
+                            continue
                         if '=' in line:
-                            val = int(line.split(')')[1].split(' ')[1])
+                            val = float(line.split(')')[1].split(' ')[1])
                             words = line.split('(')[2].split(')')[0].split(' ')
                             if 'data_capacity' in line:
                                 data_cap[words[1]] = val
-                            elif 'fuel' in line:
+                            elif 'fuel ' in line:
                                 fuel[words[1]] = val
                             elif 'data ' in line:
                                 data[(words[1], words[2])] = val
@@ -88,6 +89,8 @@ for folder in os.listdir(folder_path):
                                 init_pointing[words[1]] = words[2]
 
                     if(status == 'goal'):
+                        if '(' not in line:
+                            continue
                         words = line.split('(')[1].split(')')[0].split(' ')
                         if 'pointing' in line:
                             goal_pointing[words[1]] = words[2]
@@ -97,26 +100,16 @@ for folder in os.listdir(folder_path):
                 print(file_name)
                 file_name = file_name.replace('numeric_problem', 'state')
                 print(file_name + ' = gtpyhop.State(\'' + file_name + '\')')
-                print(file_name + '.pos = ')
-                print(init_pos)
-                print(file_name + '.power = ')
-                print(power)
-                print(file_name + '.pointing = ')
-                print(init_pointing)
-                print(file_name + '.support = ')
-                print(support)
-                print(file_name + '.calibration_tar = ')
-                print(calibration_tar)
-                print(file_name + '.data_cap = ')
-                print(data_cap)
-                print(file_name + '.fuel = ')
-                print(fuel)
-                print(file_name + '.data = ')
-                print(data)
-                print(file_name + '.slew_time = ')
-                print(slew_time)
-                print(file_name + '.calibrated = ')
-                print(calibrated)
+                print(file_name + '.pos = ', init_pos)
+                print(file_name + '.power = ', power)
+                print(file_name + '.pointing = ', init_pointing)
+                print(file_name + '.support = ', support)
+                print(file_name + '.calibration_tar = ', calibration_tar)
+                print(file_name + '.data_cap = ', data_cap)
+                print(file_name + '.fuel = ', fuel)
+                print(file_name + '.data = ', data)
+                print(file_name + '.slew_time = ', slew_time)
+                print(file_name + '.calibrated = ', calibrated)
                 print(file_name + '.have_image = {}')
                 print(file_name + '.data_stored = 0')
                 print(file_name + '.fuel_used = 0')
@@ -124,9 +117,7 @@ for folder in os.listdir(folder_path):
 
                 file_name = file_name.replace('state', 'goal')
                 print(file_name + ' = gtpyhop.Multigoal(\'' + file_name + '\')')
-                print(file_name + '.have_image = {}')
-                print(goal_have_img)
-                print(file_name + '.pointing = {}')
-                print(goal_pointing)
+                print(file_name + '.have_image =', goal_have_img)
+                print(file_name + '.pointing =', goal_pointing)
                 print(file_name + '.display(Goal state is:)')
                 print()
