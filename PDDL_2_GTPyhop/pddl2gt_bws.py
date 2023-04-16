@@ -7,8 +7,8 @@ for folder in os.listdir(folder_path):
         for file_name in os.listdir(os.path.join(folder_path, folder)):
             if 'problem' in file_name:
                 status = ''
-                f = open(os.path.join(
-                    '/home/rishabh_mukund/Workspace/AI_Planning/bws_domain/', file_name), 'r')
+                f = open(os.path.join(os.path.join(
+                    folder_path, folder), file_name), 'r')
                 lines = f.readlines()
                 init_clear = {}
                 init_pos = {}

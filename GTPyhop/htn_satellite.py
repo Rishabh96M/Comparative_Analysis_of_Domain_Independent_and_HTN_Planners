@@ -255,7 +255,6 @@ def main(do_pauses=True):
 
     goal_3_1 = gtpyhop.Multigoal('goal_3_1')
     goal_3_1.have_image = {('pl3', 'th0'): True, ('pl4', 'th0'): True}
-    goal_3_1.pos = {}
     goal_3_1.pointing = {}
     goal_3_1.display()
 
