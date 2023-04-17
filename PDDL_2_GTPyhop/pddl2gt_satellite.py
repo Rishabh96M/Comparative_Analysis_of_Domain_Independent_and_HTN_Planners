@@ -99,6 +99,7 @@ for folder in os.listdir(folder_path):
 
                 print(file_name)
                 file_name = file_name.replace('numeric_problem', 'state')
+                file_name = file_name.replace('.pddl', '')
                 print(file_name + ' = gtpyhop.State(\'' + file_name + '\')')
                 print(file_name + '.pos = ', init_pos)
                 print(file_name + '.power = ', power)
