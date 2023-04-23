@@ -13,4 +13,4 @@ import sys
 sys.path.append('../')
 import gtpyhop
 
-from .problem_size_20 import *
+from .main import *
