@@ -496,6 +496,5 @@
 	(have_image Phenomenon15 spectrograph0)
 	(have_image Phenomenon16 thermograph1)
 ))
-(:metric minimize (total-time))
 
 )

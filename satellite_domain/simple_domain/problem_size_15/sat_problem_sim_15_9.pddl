@@ -510,6 +510,5 @@
 	(have_image Phenomenon15 infrared0)
 	(have_image Phenomenon16 infrared0)
 ))
-(:metric minimize (total-time))
 
 )

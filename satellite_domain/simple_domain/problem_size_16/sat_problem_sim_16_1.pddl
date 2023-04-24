@@ -489,6 +489,5 @@
 	(pointing satellite9 GroundStation2)
 	(have_image Phenomenon17 image1)
 ))
-(:metric minimize (total-time))
 
 )

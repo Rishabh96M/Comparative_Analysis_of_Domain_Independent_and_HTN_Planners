@@ -449,6 +449,5 @@
 	(have_image Planet18 thermograph1)
 	(have_image Planet19 infrared4)
 ))
-(:metric minimize (total-time))
 
 )

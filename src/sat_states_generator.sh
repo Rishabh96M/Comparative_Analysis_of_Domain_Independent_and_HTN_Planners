@@ -37,6 +37,8 @@ do
       else
         filename="sat_problem_sim_${i}_${j}.pddl"
         $EXECUTABLE_PATH -s $j 10 10 5 $i 2 > $"${WORKING_PATH}/${domain}/${dirname}/${filename}"
+
+        sed -i '/metric minimize/d' "${WORKING_PATH}/${domain}/${dirname}/${filename}"
       fi
 
       echo "Saved ${WORKING_PATH}/${domain}/${dirname}/${filename}"

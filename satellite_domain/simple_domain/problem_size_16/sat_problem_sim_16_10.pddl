@@ -534,6 +534,5 @@
 	(have_image Planet16 infrared3)
 	(have_image Planet17 spectrograph0)
 ))
-(:metric minimize (total-time))
 
 )

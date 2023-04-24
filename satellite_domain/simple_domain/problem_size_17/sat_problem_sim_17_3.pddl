@@ -535,6 +535,5 @@
 	(have_image Star17 image2)
 	(have_image Phenomenon18 image3)
 ))
-(:metric minimize (total-time))
 
 )

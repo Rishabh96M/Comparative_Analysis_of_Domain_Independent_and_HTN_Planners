@@ -23,7 +23,7 @@ do
     for file in "$dir/"*.pddl
     do
       echo "Processing $file"
-      filename="for_$(basename "$file").pddl"
+      filename="for_$(basename "$file" .pddl).txt"
       $PLANNER_PATH $"--alias" $"lama-first" $DOMAIN_PATH $file >  $"$RESULTS_PATH/$filename"
 
     done

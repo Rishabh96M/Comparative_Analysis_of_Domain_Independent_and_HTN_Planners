@@ -485,6 +485,5 @@
 	(pointing satellite9 Planet12)
 	(have_image Planet12 infrared0)
 ))
-(:metric minimize (total-time))
 
 )

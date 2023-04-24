@@ -344,6 +344,5 @@
 	(have_image Star11 spectrograph0)
 	(have_image Planet12 spectrograph2)
 ))
-(:metric minimize (total-time))
 
 )

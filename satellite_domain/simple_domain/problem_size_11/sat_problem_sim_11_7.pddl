@@ -466,6 +466,5 @@
 	(have_image Phenomenon11 infrared3)
 	(have_image Star12 infrared3)
 ))
-(:metric minimize (total-time))
 
 )

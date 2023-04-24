@@ -376,6 +376,5 @@
 	(have_image Planet18 image0)
 	(have_image Star19 infrared1)
 ))
-(:metric minimize (total-time))
 
 )

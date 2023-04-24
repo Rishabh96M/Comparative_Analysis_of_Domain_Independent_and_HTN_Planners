@@ -445,6 +445,5 @@
 	(pointing satellite9 Star3)
 	(have_image Planet18 image3)
 ))
-(:metric minimize (total-time))
 
 )

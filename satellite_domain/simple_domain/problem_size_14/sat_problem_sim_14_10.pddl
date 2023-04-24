@@ -453,6 +453,5 @@
 	(have_image Phenomenon14 spectrograph1)
 	(have_image Planet15 spectrograph2)
 ))
-(:metric minimize (total-time))
 
 )

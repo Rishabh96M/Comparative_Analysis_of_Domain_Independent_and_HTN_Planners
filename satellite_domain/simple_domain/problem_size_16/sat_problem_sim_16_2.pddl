@@ -468,6 +468,5 @@
 	(have_image Star16 spectrograph0)
 	(have_image Star17 spectrograph0)
 ))
-(:metric minimize (total-time))
 
 )

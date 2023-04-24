@@ -421,6 +421,5 @@
 	(pointing satellite9 Star1)
 	(have_image Phenomenon13 infrared2)
 ))
-(:metric minimize (total-time))
 
 )

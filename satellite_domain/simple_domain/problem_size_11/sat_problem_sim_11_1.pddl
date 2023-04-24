@@ -401,6 +401,5 @@
 	(pointing satellite3 Star0)
 	(have_image Phenomenon12 thermograph4)
 ))
-(:metric minimize (total-time))
 
 )

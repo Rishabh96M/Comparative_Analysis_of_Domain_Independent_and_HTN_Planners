@@ -365,6 +365,5 @@
 	(pointing satellite9 GroundStation11)
 	(have_image Planet14 spectrograph2)
 ))
-(:metric minimize (total-time))
 
 )

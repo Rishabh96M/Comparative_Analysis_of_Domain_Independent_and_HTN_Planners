@@ -483,6 +483,5 @@
 	(pointing satellite8 GroundStation4)
 	(have_image Star19 image3)
 ))
-(:metric minimize (total-time))
 
 )

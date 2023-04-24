@@ -343,6 +343,5 @@
 	(have_image Planet13 infrared4)
 	(have_image Phenomenon14 infrared4)
 ))
-(:metric minimize (total-time))
 
 )

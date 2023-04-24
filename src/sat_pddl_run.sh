@@ -17,20 +17,20 @@ else
   rm -rf "${RESULTS_PATH}"/*
 fi
 
-# for dir in "$WORKING_PATH_S/problem"*
-# do
-#   if [[ -d "$dir" ]]
-#   then
-#     # Directory handling code here
-#     echo "Found directory: $dir"
-#     for file in "$dir/"*.pddl
-#     do
-#       echo "Processing $file"
-#       filename="for_$(basename "$file").pddl"
-#       $PLANNER_PATH_S $"--alias" $"lama-first" $DOMAIN_PATH_S $file >  $"$RESULTS_PATH/$filename"
-#     done
-#   fi
-# done
+for dir in "$WORKING_PATH_S/problem"*
+do
+  if [[ -d "$dir" ]]
+  then
+    # Directory handling code here
+    echo "Found directory: $dir"
+    for file in "$dir/"*.pddl
+    do
+      echo "Processing $file"
+      filename="for_$(basename "$file").pddl"
+      $PLANNER_PATH_S $"--alias" $"lama-first" $DOMAIN_PATH_S $file >  $"$RESULTS_PATH/$filename"
+    done
+  fi
+done
 
 for dir in "$WORKING_PATH_N/problem"*
 do
@@ -41,7 +41,7 @@ do
     for file in "$dir/"*.pddl
     do
       echo "Processing $file"
-      filename="for_$(basename "$file").pddl"
+      filename="for_$(basename "$file" .pddl).txt"
       $PLANNER_PATH_N $"-o" $DOMAIN_PATH_N $"-f" $file >  $"$RESULTS_PATH/$filename"
     done
   fi

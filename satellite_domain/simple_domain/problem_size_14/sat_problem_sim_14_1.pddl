@@ -503,6 +503,5 @@
 	(pointing satellite6 GroundStation10)
 	(have_image Planet15 thermograph2)
 ))
-(:metric minimize (total-time))
 
 )

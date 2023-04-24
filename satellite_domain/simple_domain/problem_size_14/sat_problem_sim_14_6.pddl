@@ -408,6 +408,5 @@
 	(have_image Star14 infrared0)
 	(have_image Phenomenon15 thermograph1)
 ))
-(:metric minimize (total-time))
 
 )

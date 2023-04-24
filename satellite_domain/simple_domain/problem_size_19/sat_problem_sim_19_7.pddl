@@ -495,6 +495,5 @@
 	(have_image Star19 infrared4)
 	(have_image Phenomenon20 image0)
 ))
-(:metric minimize (total-time))
 
 )

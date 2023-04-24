@@ -377,6 +377,5 @@
 	(have_image Planet10 thermograph3)
 	(have_image Star11 thermograph3)
 ))
-(:metric minimize (total-time))
 
 )

@@ -384,6 +384,5 @@
 	(pointing satellite7 GroundStation10)
 	(have_image Planet15 image1)
 ))
-(:metric minimize (total-time))
 
 )

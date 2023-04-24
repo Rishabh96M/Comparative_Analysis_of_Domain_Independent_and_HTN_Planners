@@ -415,6 +415,5 @@
 	(have_image Planet10 image4)
 	(have_image Phenomenon11 image2)
 ))
-(:metric minimize (total-time))
 
 )

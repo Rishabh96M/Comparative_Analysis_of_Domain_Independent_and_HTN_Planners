@@ -357,6 +357,5 @@
 	(pointing satellite7 Star4)
 	(pointing satellite8 GroundStation1)
 ))
-(:metric minimize (total-time))
 
 )

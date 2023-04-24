@@ -472,6 +472,5 @@
 	(have_image Star18 thermograph4)
 	(have_image Phenomenon19 thermograph4)
 ))
-(:metric minimize (total-time))
 
 )

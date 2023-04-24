@@ -384,6 +384,5 @@
 	(have_image Phenomenon17 spectrograph0)
 	(have_image Star18 infrared3)
 ))
-(:metric minimize (total-time))
 
 )

@@ -395,6 +395,5 @@
 (:goal (and
 	(have_image Star11 spectrograph2)
 ))
-(:metric minimize (total-time))
 
 )
