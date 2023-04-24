@@ -27,7 +27,7 @@ def main(do_pauses=True):
     domain_paths = ['numeric_domain', 'simple_domain']
 
     for domain_path in domain_paths:
-        for folder in sorted(os.listdir(os.path.join(base_path, domain_path))):
+        for folder in os.listdir(os.path.join(base_path, domain_path)):
             if 'problem' in folder:
                 for file_name in sorted(os.listdir(os.path.join(base_path, domain_path, folder))):
                     if 'problem' in file_name:
@@ -58,7 +58,7 @@ def main(do_pauses=True):
                             print('Plan Length: ', plan_len)
                         print('Time Elapsed: ', end - start)
                         th.pause(do_pauses)
-                        
+
 
 if __name__ == "__main__":
     main()

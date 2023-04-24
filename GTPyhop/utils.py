@@ -51,10 +51,10 @@ def sat_pddl2gtpyhop(file_path, init_state, goal_state):
     init_state.data = {}
     init_state.slew_time = {}
     init_state.fuel_used = 0
-    init_state.have_img = {}
+    init_state.have_image = {}
     init_state.data_stored = 0
     goal_state.pointing = {}
-    goal_state.have_img = {}
+    goal_state.have_image = {}
 
     file = open(file_path, 'r')
 
@@ -130,7 +130,7 @@ def sat_pddl2gtpyhop(file_path, init_state, goal_state):
             if 'pointing' in line:
                 goal_state.pointing[words[1]] = words[2]
             elif 'have_image' in line:
-                goal_state.have_img[(words[1], words[2])] = True
+                goal_state.have_image[(words[1], words[2])] = True
 
     file.close()
     return init_state, goal_state
