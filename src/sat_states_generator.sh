@@ -25,7 +25,6 @@ do
       echo "Created directory: $dirname in ${WORKING_PATH}/${domain}"
     else
       echo "Directory already exists: $dirname in ${WORKING_PATH}/${domain}"
-      rm -rf "${WORKING_PATH}/${domain}/${dirname}"/*
     fi
 
     for j in {1..10}

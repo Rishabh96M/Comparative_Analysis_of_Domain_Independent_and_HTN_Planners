@@ -11,7 +11,6 @@ then
   echo "Created directory: ${RESULTS_PATH}"
 else
   echo "Directory already exists: ${RESULTS_PATH}"
-  rm -rf "${RESULTS_PATH}"/*
 fi
 
 echo "Problem Size, Plan Length, Nodes Expanded, Total Time" > $"$RESULTS_PATH/stats.txt"

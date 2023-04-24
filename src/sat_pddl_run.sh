@@ -14,7 +14,6 @@ then
   echo "Created directory: ${RESULTS_PATH}"
 else
   echo "Directory already exists: ${RESULTS_PATH}"
-  rm -rf "${RESULTS_PATH}"/*
 fi
 
 for dir in "$WORKING_PATH_S/problem"*
@@ -27,7 +26,7 @@ do
     do
       echo "Processing $file"
       filename="for_$(basename "$file").pddl"
-      $PLANNER_PATH_S $"--alias" $"lama-first" $DOMAIN_PATH_S $file >  $"$RESULTS_PATH/$filename"
+      $PLANNER_PATH_S $"--alias" $"lama-first" $DOMAIN_PATH_S $file > $"$RESULTS_PATH/$filename"
     done
   fi
 done
@@ -42,7 +41,7 @@ do
     do
       echo "Processing $file"
       filename="for_$(basename "$file" .pddl).txt"
-      $PLANNER_PATH_N $"-o" $DOMAIN_PATH_N $"-f" $file >  $"$RESULTS_PATH/$filename"
+      $PLANNER_PATH_N $"-o" $DOMAIN_PATH_N $"-f" $file > $"$RESULTS_PATH/$filename"
     done
   fi
 done
