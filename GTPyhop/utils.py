@@ -4,6 +4,7 @@ def bws_pddl2gtpyhop(file_path, init_state, goal_state):
     lines = file.readlines()
     init_state.holding = {'hand': False}
     init_state.pos = {}
+    init_state.explored_nodes = 0
     goal_state.pos = {}
 
     for line in lines:
@@ -53,6 +54,7 @@ def sat_pddl2gtpyhop(file_path, init_state, goal_state):
     init_state.fuel_used = 0
     init_state.have_image = {}
     init_state.data_stored = 0
+    init_state.explored_nodes = 0
     goal_state.pointing = {}
     goal_state.have_image = {}
 

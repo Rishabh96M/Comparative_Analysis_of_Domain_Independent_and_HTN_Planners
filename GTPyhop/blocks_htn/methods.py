@@ -3,6 +3,18 @@ import gtpyhop
 ###############################################################################
 # Helper functions that are used in the methods' preconditions.
 
+explored_nodes = 0
+
+
+def reset_explored_nodes():
+    global explored_nodes
+    explored_nodes = 0
+
+
+def get_explored_nodes():
+    global explored_nodes
+    return explored_nodes
+
 
 def is_done(b1, state, mgoal):
     if b1 == 'table':
@@ -99,6 +111,8 @@ def m_take(state, b1):
     """
     Generate either a pickup or an unstack subtask for b1.
     """
+    global explored_nodes
+    explored_nodes += 1
     if state.clear[b1]:
         if state.pos[b1] == 'table':
             return [('pickup', b1)]
@@ -116,6 +130,8 @@ def m_put(state, b1, b2):
     Generate either a putdown or a stack subtask for b1.
     b2 is b1's destination: either the table or another block.
     """
+    global explored_nodes
+    explored_nodes += 1
     if state.holding['hand'] == b1:
         if b2 == 'table':
             return [('putdown', b1)]

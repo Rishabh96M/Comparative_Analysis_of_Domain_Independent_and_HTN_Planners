@@ -9,8 +9,9 @@ import os
 # We must declare the current domain before importing methods and actions.
 # To make the code more portable, use the name of the package.
 the_domain = gtpyhop.Domain(__package__)
-from .methods import *
 from .actions import *
+from .methods import *
+
 sys.path.append('../')
 from utils import *
 
@@ -50,6 +51,8 @@ def main(do_pauses=True):
                     init_state.display('Init state is:')
                     goal_state.display('Goal state is:')
 
+                    gtpyhop.verbose = 2
+                    reset_explored_nodes()
                     start = time.time()
                     plan = gtpyhop.find_plan(
                         init_state, [('achieve', goal_state)])
@@ -61,6 +64,7 @@ def main(do_pauses=True):
                             plan_len += 1
                         print('Plan Length: ', plan_len)
                     print('Time Elapsed: ', end - start)
+                    print('Nodes Explored: ', get_explored_nodes())
                     th.pause(do_pauses)
 
 

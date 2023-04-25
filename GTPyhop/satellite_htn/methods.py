@@ -8,7 +8,7 @@ def sats_to_move(state, mgoal):
     to_move = []
 
     for sat in mgoal.pointing:
-        if state.pointing[sat] is not mgoal.pointing[sat]:
+        if state.pointing[sat] != mgoal.pointing[sat]:
             to_move.append(sat)
     return to_move
 

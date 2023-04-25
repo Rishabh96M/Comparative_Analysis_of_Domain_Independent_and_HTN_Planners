@@ -24,10 +24,10 @@ def main(do_pauses=True):
     gtpyhop.print_domain()
 
     base_path = os.path.join(os.getcwd(), '../satellite_domain')
-    domain_paths = ['numeric_domain', 'simple_domain']
+    domain_paths = ['numeric_domain']
 
     for domain_path in domain_paths:
-        for folder in os.listdir(os.path.join(base_path, domain_path)):
+        for folder in sorted(os.listdir(os.path.join(base_path, domain_path))):
             if 'problem' in folder:
                 for file_name in sorted(os.listdir(os.path.join(base_path, domain_path, folder))):
                     if 'problem' in file_name:
