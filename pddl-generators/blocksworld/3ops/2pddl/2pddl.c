@@ -5,12 +5,12 @@
  * (C) Copyright 2001 Albert Ludwigs University Freiburg
  *     Institute of Computer Science
  *
- * All rights reserved. Use of this software is permitted for 
- * non-commercial research purposes, and it may be copied only 
+ * All rights reserved. Use of this software is permitted for
+ * non-commercial research purposes, and it may be copied only
  * for that use.  All copies must include this copyright message.
  * This software is made available AS IS, and neither the authors
  * nor the  Albert Ludwigs University Freiburg make any warranty
- * about the software or its performance. 
+ * about the software or its performance.
  *********************************************************************/
 
 
@@ -34,7 +34,7 @@ typedef unsigned char Bool;
 /* commands
  */
 char *gdata;
-int gn; 
+int gn;
 
 
 
@@ -88,17 +88,18 @@ int main( int argc, char *argv[] )
     printf("\n\n");
   }
 
-  printf("\n\n(define (problem BW-rand-%d)", gn);
-  printf("\n(:domain blocksworld-3ops)");
-  printf("\n(:objects ");
+  printf("(define (problem BW-rand-%d)", gn);
+  printf("\n    (:domain blocksworld)");
+  printf("\n    (:objects ");
   for ( i = 0; i < gn; i++ ) printf("b%d ", i+1);
   printf(")");
-  printf("\n(:init");
+  printf("\n    (:init");
+  printf("\n        (handempty)");
   for ( i = 1; i < gn + 1; i++ ) {
     if ( initial[i] == 0 ) {
-      printf("\n(on-table b%d)", i);
+      printf("\n        (on-table b%d)", i);
     } else {
-      printf("\n(on b%d b%d)", i, initial[i]);
+      printf("\n        (on b%d b%d)", i, initial[i]);
     }
   }
   for ( i = 1; i < gn + 1; i++ ) {
@@ -107,20 +108,20 @@ int main( int argc, char *argv[] )
       if ( initial[j] == i ) break;
     }
     if ( j < gn + 1 ) continue;
-    printf("\n(clear b%d)", i);
+    printf("\n        (clear b%d)", i);
   }
-  printf("\n)");
-  printf("\n(:goal");
-  printf("\n(and");
+  printf("\n    )");
+  printf("\n    (:goal");
+  printf("\n        (and");
   for ( i = 1; i < gn + 1; i++ ) {
     if ( goal[i] == 0 ) {
     } else {
-      printf("\n(on b%d b%d)", i, goal[i]);
+      printf("\n            (on b%d b%d)", i, goal[i]);
     }
   }
-  printf(")\n)\n)\n\n\n");
-  
-  
+  printf("\n        )\n    )\n)\n");
+
+
 
   exit( 0 );
 

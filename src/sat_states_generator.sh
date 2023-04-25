@@ -1,32 +1,25 @@
 #!/bin/bash
 
-
 EXECUTABLE_PATH="./../../AI_Planning/satellite-generator/satellite-generator/satgen"
 WORKING_PATH="../satellite_domain"
 
+if [ ! -d "${WORKING_PATH}" ]
+then
+  mkdir -p "${WORKING_PATH}"
+  echo "Created directory: ${WORKING_PATH}"
+else
+  echo "Directory already exists: ${WORKING_PATH}"
+  rm -rf "$WORKING_PATH"/*
+fi
+
 for domain in "numeric_domain" "simple_domain"
 do
-  echo "Generating files for $domain"
-  if [ ! -d "${WORKING_PATH}/${domain}" ]
-  then
-    mkdir -p "${WORKING_PATH}/${domain}"
-    echo "Created directory: ${domain} in ${WORKING_PATH}"
-  else
-    echo "Directory already exists: ${domain} in ${WORKING_PATH}"
-    rm -rf "${WORKING_PATH}/${domain}"/*
-  fi
+  mkdir -p "${WORKING_PATH}/${domain}"
 
   for i in {10..19}
   do
     dirname="problem_size_$i"
-
-    if [ ! -d "${WORKING_PATH}/${domain}/${dirname}" ]
-    then
-      mkdir -p "${WORKING_PATH}/${domain}/${dirname}"
-      echo "Created directory: $dirname in ${WORKING_PATH}/${domain}"
-    else
-      echo "Directory already exists: $dirname in ${WORKING_PATH}/${domain}"
-    fi
+    mkdir -p "${WORKING_PATH}/${domain}/${dirname}"
 
     for j in {1..10}
     do
