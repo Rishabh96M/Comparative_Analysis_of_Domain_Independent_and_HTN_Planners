@@ -1,3 +1,6 @@
+import os
+
+
 def bws_pddl2gtpyhop(file_path, init_state, goal_state):
     status = ''
     file = open(file_path, 'r')
@@ -139,6 +142,9 @@ def sat_pddl2gtpyhop(file_path, init_state, goal_state):
 
 
 def write_stats(data, file_path):
+    if not os.path.exists(os.path.join(os.getcwd(), "../results")):
+        os.makedirs(os.path.join(os.getcwd(), "../results"))
+
     with open(file_path, 'w') as file:
         file.write("Problem Size, Plan Length, Total Time\n")
         for line in data:

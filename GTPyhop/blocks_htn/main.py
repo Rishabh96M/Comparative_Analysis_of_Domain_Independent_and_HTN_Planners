@@ -68,7 +68,7 @@ def main(do_pauses=True):
                         data.append(
                             [file_name.split('_')[2], plan_len, end - start])
 
-    write_stats(data, os.path.join(os.getcwd(), 'bws_stats.txt'))
+    write_stats(data, os.path.join(os.getcwd(), '../results/bws_stats.txt'))
 
 
 if __name__ == "__main__":

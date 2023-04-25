@@ -60,7 +60,7 @@ def main(do_pauses=True):
                         data.append(
                             [file_name.split('_')[3], plan_len, end - start])
 
-    write_stats(data, os.path.join(os.getcwd(), 'sat_stats.txt'))
+    write_stats(data, os.path.join(os.getcwd(), '../results/sat_stats.txt'))
 
 
 if __name__ == "__main__":
