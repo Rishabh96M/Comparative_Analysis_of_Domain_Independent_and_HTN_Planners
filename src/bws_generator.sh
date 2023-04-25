@@ -1,7 +1,7 @@
 #!/bin/bash
 
 EXECUTABLE_PATH="./../pddl-generators/blocksworld/blocksworld"
-WORKING_PATH="../bws_domain_test"
+WORKING_PATH="../bws_domain"
 
 if [ ! -d "${WORKING_PATH}" ]
 then
