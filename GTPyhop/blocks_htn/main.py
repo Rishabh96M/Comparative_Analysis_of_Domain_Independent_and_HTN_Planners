@@ -32,6 +32,7 @@ def main(do_pauses=True):
     gtpyhop.print_domain()
 
     folder_path = os.path.join(os.getcwd(), '../bws_domain')
+    data = []
 
     for folder in sorted(os.listdir(folder_path)):
         if 'problem' in folder:
@@ -63,9 +64,11 @@ def main(do_pauses=True):
                         for x in plan:
                             plan_len += 1
                         print('Plan Length: ', plan_len)
-                    print('Time Elapsed: ', end - start)
-                    print('Nodes Explored: ', get_explored_nodes())
-                    th.pause(do_pauses)
+                        print('Time Elapsed: ', end - start)
+                        data.append(
+                            [file_name.split('_')[2], plan_len, end - start])
+
+    write_stats(data, os.path.join(os.getcwd(), 'bws_stats.txt'))
 
 
 if __name__ == "__main__":

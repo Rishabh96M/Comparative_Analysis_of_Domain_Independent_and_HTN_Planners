@@ -24,40 +24,43 @@ def main(do_pauses=True):
     gtpyhop.print_domain()
 
     base_path = os.path.join(os.getcwd(), '../satellite_domain')
-    domain_paths = ['numeric_domain']
+    domain_path = 'numeric_domain'
+    data = []
 
-    for domain_path in domain_paths:
-        for folder in sorted(os.listdir(os.path.join(base_path, domain_path))):
-            if 'problem' in folder:
-                for file_name in sorted(os.listdir(os.path.join(base_path, domain_path, folder))):
-                    if 'problem' in file_name:
-                        state_name = file_name.replace(
-                            'sat_problem', 'state').replace('.pddl', '')
+    for folder in sorted(os.listdir(os.path.join(base_path, domain_path))):
+        if 'problem' in folder:
+            for file_name in sorted(os.listdir(os.path.join(base_path, domain_path, folder))):
+                if 'problem' in file_name:
+                    state_name = file_name.replace(
+                        'sat_problem', 'state').replace('.pddl', '')
 
-                        init_state = gtpyhop.State(state_name)
+                    init_state = gtpyhop.State(state_name)
 
-                        goal_state = gtpyhop.Multigoal(
-                            state_name.replace('state', 'goal'))
+                    goal_state = gtpyhop.Multigoal(
+                        state_name.replace('state', 'goal'))
 
-                        init_state, goal_state = sat_pddl2gtpyhop(os.path.join(
-                            base_path, domain_path, folder, file_name),
-                            init_state, goal_state)
+                    init_state, goal_state = sat_pddl2gtpyhop(os.path.join(
+                        base_path, domain_path, folder, file_name),
+                        init_state, goal_state)
 
-                        init_state.display('Init state is:')
-                        goal_state.display('Goal state is:')
+                    init_state.display('Init state is:')
+                    goal_state.display('Goal state is:')
 
-                        start = time.time()
-                        plan = gtpyhop.find_plan(
-                            init_state, [('achieve', goal_state)])
-                        end = time.time()
+                    start = time.time()
+                    plan = gtpyhop.find_plan(
+                        init_state, [('achieve', goal_state)])
+                    end = time.time()
 
-                        if plan:
-                            plan_len = 0
-                            for x in plan:
-                                plan_len += 1
-                            print('Plan Length: ', plan_len)
+                    if plan:
+                        plan_len = 0
+                        for x in plan:
+                            plan_len += 1
+                        print('Plan Length: ', plan_len)
                         print('Time Elapsed: ', end - start)
-                        th.pause(do_pauses)
+                        data.append(
+                            [file_name.split('_')[3], plan_len, end - start])
+
+    write_stats(data, os.path.join(os.getcwd(), 'sat_stats.txt'))
 
 
 if __name__ == "__main__":

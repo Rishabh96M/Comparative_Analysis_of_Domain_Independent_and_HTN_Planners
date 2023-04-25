@@ -13,6 +13,7 @@ do
     echo "Created directory: ${domain} in ${WORKING_PATH}"
   else
     echo "Directory already exists: ${domain} in ${WORKING_PATH}"
+    rm -rf "${WORKING_PATH}/${domain}"/*
   fi
 
   for i in {10..19}
@@ -44,3 +45,6 @@ do
     done
   done
 done
+
+$EXECUTABLE_PATH -n 11 10 10 5 15 2 > $"${WORKING_PATH}/numeric_domain/problem_size_15/sat_problem_num_15_5.pddl"
+$EXECUTABLE_PATH -n 12 10 10 5 15 2 > $"${WORKING_PATH}/numeric_domain/problem_size_15/sat_problem_num_15_9.pddl"
