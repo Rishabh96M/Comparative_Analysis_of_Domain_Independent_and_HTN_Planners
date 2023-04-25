@@ -10,6 +10,8 @@ RESULTS_PATH="../results"
 OUTPUT_PATH_S="$RESULTS_PATH/sat_simple_domain"
 OUTPUT_PATH_N="$RESULTS_PATH/sat_numeric_domain"
 
+TIMER=60
+
 if [ ! -d "${RESULTS_PATH}" ]
 then
   mkdir -p "${RESULTS_PATH}"
@@ -49,14 +51,19 @@ do
     do
       echo "Processing $file"
       filename="for_$(basename "$file" .pddl).txt"
-      $PLANNER_PATH_S $"--alias" $"lama-first" $DOMAIN_PATH_S $file > $"$OUTPUT_PATH_S/$filename"
+      timeout ${TIMER} $PLANNER_PATH_S $"--alias" $"lama-first" $DOMAIN_PATH_S $file > $"$OUTPUT_PATH_S/$filename"
 
-      data="$(echo "$filename" | grep -oP '(?<=sim_)[0-9]+'),
-            $(grep -oP '(?<=Plan length: )\d+(\.\d+)?' "$OUTPUT_PATH_S/$filename"),
-            $(grep -oP '(?<=Evaluated )\d+(\.\d+)?' "$OUTPUT_PATH_S/$filename"),
-            $(grep -oP '(?<=Total time: )\d+(\.\d+)?' "$OUTPUT_PATH_S/$filename")"
+      if [ $? -eq 124 ]
+      then
+        data="$(echo $(basename "$file" .pddl)), FAILED, 0, ${TIMER}"
+      else
+        data="$(echo "$filename" | grep -oP '(?<=sim_)[0-9]+'),
+              $(grep -oP '(?<=Plan length: )\d+(\.\d+)?' "$OUTPUT_PATH_S/$filename"),
+              $(grep -oP '(?<=Evaluated )\d+(\.\d+)?' "$OUTPUT_PATH_S/$filename"),
+              $(grep -oP '(?<=Total time: )\d+(\.\d+)?' "$OUTPUT_PATH_S/$filename")"
+        echo $data >> $"$RESULTS_PATH/sat_fd_stats.txt"
+      fi
       echo $data
-      echo $data >> $"$RESULTS_PATH/sat_fd_stats.txt"
     done
   fi
 done
@@ -71,16 +78,21 @@ do
     do
       echo "Processing $file"
       filename="for_$(basename "$file" .pddl).txt"
-      $PLANNER_PATH_N $"-o" $DOMAIN_PATH_N $"-f" $file > $"$OUTPUT_PATH_N/$filename"
+      timeout ${TIMER} $PLANNER_PATH_N $"-o" $DOMAIN_PATH_N $"-f" $file > $"$OUTPUT_PATH_N/$filename"
 
-      plan_length=$(sed -n '/step/{:a;N;/time spent/!ba;p}' "$OUTPUT_PATH_N/$filename" | grep -c .)
-      total_time_line=$(tail -n 2 "$OUTPUT_PATH_N/$filename" | head -n 1)
-      data="$(echo "$filename" | grep -oP '(?<=num_)[0-9]+'),
-            $(( plan_length - 2 )),
-            $(grep -oP '(?<= evaluating )\d+(\.\d+)?' "$OUTPUT_PATH_N/$filename"),
-            $(echo "$total_time_line" | grep -Eo '[0-9]+\.[0-9]+' | sed -E 's/.*([0-9]+\.[0-9]+).*/\1/')"
+      if [ $? -eq 124 ]
+      then
+        data="$(echo $(basename "$file" .pddl)), FAILED, 0, ${TIMER}"
+      else
+        plan_length=$(sed -n '/step/{:a;N;/time spent/!ba;p}' "$OUTPUT_PATH_N/$filename" | grep -c .)
+        total_time_line=$(tail -n 2 "$OUTPUT_PATH_N/$filename" | head -n 1)
+        data="$(echo "$filename" | grep -oP '(?<=num_)[0-9]+'),
+              $(( plan_length - 2 )),
+              $(grep -oP '(?<= evaluating )\d+(\.\d+)?' "$OUTPUT_PATH_N/$filename"),
+              $(echo "$total_time_line" | grep -Eo '[0-9]+\.[0-9]+' | sed -E 's/.*([0-9]+\.[0-9]+).*/\1/')"
+        echo $data >> $"$RESULTS_PATH/sat_ff_stats.txt"
+      fi
       echo $data
-      echo $data >> $"$RESULTS_PATH/sat_ff_stats.txt"
     done
   fi
 done

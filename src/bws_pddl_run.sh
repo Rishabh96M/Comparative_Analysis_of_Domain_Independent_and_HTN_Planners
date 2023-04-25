@@ -6,6 +6,8 @@ OUTPUT_PATH="$RESULTS_PATH/bws_domain"
 PLANNER_PATH="./../../AI_Planning/fast-downward-22.12/fast-downward.py"
 DOMAIN_PATH="bws_domain_actions.pddl"
 
+TIMER=60
+
 if [ ! -d "${RESULTS_PATH}" ]
 then
   mkdir -p "${RESULTS_PATH}"
@@ -36,14 +38,19 @@ do
     do
       echo "Processing $file"
       filename="for_$(basename "$file" .pddl).txt"
-      $PLANNER_PATH $"--alias" $"lama-first" $DOMAIN_PATH $file > $"$OUTPUT_PATH/$filename"
+      timeout ${TIMER} $PLANNER_PATH $"--alias" $"lama-first" $DOMAIN_PATH $file > $"$OUTPUT_PATH/$filename"
 
-      data="$(echo "$filename" | grep -oP '(?<=problem_)[0-9]+'),
-            $(grep -oP '(?<=Plan length: )\d+(\.\d+)?' "$OUTPUT_PATH/$filename"),
-            $(grep -oP '(?<=Evaluated )\d+(\.\d+)?' "$OUTPUT_PATH/$filename"),
-            $(grep -oP '(?<=Total time: )\d+(\.\d+)?' "$OUTPUT_PATH/$filename")"
+      if [ $? -eq 124 ]
+      then
+        data="$(echo $(basename "$file" .pddl)), FAILED, 0, ${TIMER}"
+      else
+        data="$(echo "$filename" | grep -oP '(?<=problem_)[0-9]+'),
+              $(grep -oP '(?<=Plan length: )\d+(\.\d+)?' "$OUTPUT_PATH/$filename"),
+              $(grep -oP '(?<=Evaluated )\d+(\.\d+)?' "$OUTPUT_PATH/$filename"),
+              $(grep -oP '(?<=Total time: )\d+(\.\d+)?' "$OUTPUT_PATH/$filename")"
+        echo $data >> $"$RESULTS_PATH/bws_fd_stats.txt"
+      fi
       echo $data
-      echo $data >> $"$RESULTS_PATH/bws_fd_stats.txt"
     done
   fi
 done
