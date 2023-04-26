@@ -42,14 +42,15 @@ do
 
       if [ $? -eq 124 ]
       then
-        data="$(echo $(basename "$file" .pddl)), FAILED, 0, ${TIMER}"
+        data="np.nan, np.nan, np.nan, np.nan "
+        echo $(basename "$file" .pddl) >> "error_s.txt"
       else
         data="$(echo "$filename" | grep -oP '(?<=problem_)[0-9]+'),
               $(grep -oP '(?<=Plan length: )\d+(\.\d+)?' "$OUTPUT_PATH/$filename"),
               $(grep -oP '(?<=Evaluated )\d+(\.\d+)?' "$OUTPUT_PATH/$filename"),
               $(grep -oP '(?<=Total time: )\d+(\.\d+)?' "$OUTPUT_PATH/$filename")"
-        echo $data >> $"$RESULTS_PATH/bws_fd_stats.txt"
       fi
+      echo $data >> $"$RESULTS_PATH/bws_fd_stats.txt"
       echo $data
     done
   fi

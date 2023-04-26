@@ -148,6 +148,7 @@ def write_stats(data, file_path):
     with open(file_path, 'w') as file:
         file.write("Problem Size, Plan Length, Total Time\n")
         for line in data:
-            for var in line:
+            for var in line[:-1]:
                 file.write(str(var) + ", ")
+            file.write(str(line[-1]))
             file.write('\n')

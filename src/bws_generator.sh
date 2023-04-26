@@ -12,12 +12,12 @@ else
   rm -rf "$WORKING_PATH"/*
 fi
 
-for i in {20..29}
+for i in {20..34}
 do
   dirname="problem_size_$i"
   mkdir -p "${WORKING_PATH}/${dirname}"
 
-  for j in {1..10}
+  for j in {1..100}
   do
     filename="bws_problem_${i}_${j}.pddl"
     $EXECUTABLE_PATH 3 $i > $"${WORKING_PATH}/${dirname}/${filename}"

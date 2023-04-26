@@ -3,6 +3,18 @@ import gtpyhop
 ###############################################################################
 # Helper functions that are used in the methods' preconditions.
 
+explored_nodes = 0
+
+
+def reset_explored_nodes():
+    global explored_nodes
+    explored_nodes = 0
+
+
+def get_explored_nodes():
+    global explored_nodes
+    return explored_nodes
+
 
 def sats_to_move(state, mgoal):
     to_move = []
@@ -107,9 +119,12 @@ gtpyhop.declare_task_methods('achieve', m_completetasks)
 
 
 def m_move_sat(state, sat, new_dir, curr_dir):
+    global explored_nodes
+    explored_nodes += 1
     if new_dir == curr_dir:
         return []
     if check_if_fuel(state, sat, state.slew_time[(new_dir, curr_dir)]):
+        explored_nodes += 1
         return [('turn_to', sat, new_dir, curr_dir)]
     else:
         False
@@ -119,10 +134,13 @@ gtpyhop.declare_task_methods('move', m_move_sat)
 
 
 def m_get_image(state, dir, mode):
+    global explored_nodes
+    explored_nodes += 1
     sat, inst, cal_dir = best_sat_inst(state, dir, mode)
     if sat == 'none':
         return False
     else:
+        explored_nodes += 1
         return [('prep_inst', inst, sat, cal_dir),
                 ('move', sat, dir, cal_dir),
                 ('take_image', sat, dir, inst, mode)]
@@ -132,8 +150,11 @@ gtpyhop.declare_task_methods('get_image', m_get_image)
 
 
 def m_prep_inst(state, inst, sat, cal_dir):
+    global explored_nodes
+    explored_nodes += 1
     if state.calibrated[inst]:
         return []
+    explored_nodes += 1
     return [('move', sat, cal_dir, state.pointing[sat]),
             ('pwr_inst', inst, sat), ('calibrate', sat, inst, cal_dir)]
 
@@ -142,13 +163,17 @@ gtpyhop.declare_task_methods('prep_inst', m_prep_inst)
 
 
 def m_pwr_inst(state, inst, sat):
+    global explored_nodes
+    explored_nodes += 1
     if inst in state.power and state.power[inst]:
         return []
     if state.power[sat]:
+        explored_nodes += 1
         return [('switch_on', inst, sat)]
     old_inst = get_active_inst(state, sat)
     if old_inst == 'none':
         return False
+    explored_nodes += 2
     return [('switch_off', old_inst, sat), ('switch_on', inst, sat)]
 
 

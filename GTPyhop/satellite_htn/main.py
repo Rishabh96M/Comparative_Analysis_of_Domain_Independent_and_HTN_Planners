@@ -2,6 +2,7 @@ import os
 import sys
 import time as time
 import gtpyhop
+import numpy as np
 import test_harness as th   # code for use in paging and debugging
 
 
@@ -46,6 +47,7 @@ def main(do_pauses=True):
                     init_state.display('Init state is:')
                     goal_state.display('Goal state is:')
 
+                    reset_explored_nodes()
                     start = time.time()
                     plan = gtpyhop.find_plan(
                         init_state, [('achieve', goal_state)])
@@ -57,10 +59,14 @@ def main(do_pauses=True):
                             plan_len += 1
                         print('Plan Length: ', plan_len)
                         print('Time Elapsed: ', end - start)
-                        data.append(
-                            [file_name.split('_')[3], plan_len, end - start])
+                        data.append([file_name.split('_')[3], plan_len,
+                                    get_explored_nodes(), end - start])
+                    else:
+                        data.append([np.nan, np.nan, np.nan, np.nan])
+                    print(data[-1])
 
-    write_stats(data, os.path.join(os.getcwd(), '../results/sat_stats.txt'))
+    write_stats(data, os.path.join(
+        os.getcwd(), '../results/sat_htn_stats.txt'))
 
 
 if __name__ == "__main__":

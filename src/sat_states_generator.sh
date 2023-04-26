@@ -1,6 +1,6 @@
 #!/bin/bash
 
-EXECUTABLE_PATH="./../../AI_Planning/satellite-generator/satellite-generator/satgen"
+EXECUTABLE_PATH="./../pddl-generators/satellite_states_generator/satellite-generator/satgen"
 WORKING_PATH="../satellite_domain"
 
 if [ ! -d "${WORKING_PATH}" ]
@@ -16,12 +16,12 @@ for domain in "numeric_domain" "simple_domain"
 do
   mkdir -p "${WORKING_PATH}/${domain}"
 
-  for i in {10..19}
+  for i in {10..24}
   do
     dirname="problem_size_$i"
     mkdir -p "${WORKING_PATH}/${domain}/${dirname}"
 
-    for j in {1..10}
+    for j in {1..20}
     do
       if [ $domain == "numeric_domain" ]
       then
@@ -39,5 +39,5 @@ do
   done
 done
 
-$EXECUTABLE_PATH -n 11 10 10 5 15 2 > $"${WORKING_PATH}/numeric_domain/problem_size_15/sat_problem_num_15_5.pddl"
-$EXECUTABLE_PATH -n 12 10 10 5 15 2 > $"${WORKING_PATH}/numeric_domain/problem_size_15/sat_problem_num_15_9.pddl"
+# $EXECUTABLE_PATH -n 11 10 10 5 15 2 > $"${WORKING_PATH}/numeric_domain/problem_size_15/sat_problem_num_15_5.pddl"
+# $EXECUTABLE_PATH -n 12 10 10 5 15 2 > $"${WORKING_PATH}/numeric_domain/problem_size_15/sat_problem_num_15_9.pddl"

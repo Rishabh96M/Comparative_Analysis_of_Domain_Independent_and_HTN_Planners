@@ -115,8 +115,10 @@ def m_take(state, b1):
     explored_nodes += 1
     if state.clear[b1]:
         if state.pos[b1] == 'table':
+            explored_nodes += 1
             return [('pickup', b1)]
         else:
+            explored_nodes += 1
             return [('unstack', b1, state.pos[b1])]
     else:
         return False
@@ -134,8 +136,10 @@ def m_put(state, b1, b2):
     explored_nodes += 1
     if state.holding['hand'] == b1:
         if b2 == 'table':
+            explored_nodes += 1
             return [('putdown', b1)]
         else:
+            explored_nodes += 1
             return [('stack', b1, b2)]
     else:
         return False

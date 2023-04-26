@@ -1,5 +1,5 @@
 import sys
-
+import numpy as np
 import time as time
 import gtpyhop
 import test_harness as th   # code for use in paging and debugging
@@ -65,10 +65,14 @@ def main(do_pauses=True):
                             plan_len += 1
                         print('Plan Length: ', plan_len)
                         print('Time Elapsed: ', end - start)
-                        data.append(
-                            [file_name.split('_')[2], plan_len, end - start])
+                        data.append([file_name.split('_')[2], plan_len,
+                                    get_explored_nodes(), end - start])
+                    else:
+                        data.append([np.nan, np.nan, np.nan, np.nan])
+                    print(data[-1])
 
-    write_stats(data, os.path.join(os.getcwd(), '../results/bws_stats.txt'))
+    write_stats(data, os.path.join(
+        os.getcwd(), '../results/bws_htn_stats.txt'))
 
 
 if __name__ == "__main__":
